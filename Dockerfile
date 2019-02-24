@@ -4,7 +4,7 @@ LABEL "com.github.actions.name"="Build Hugo"
 LABEL "com.github.actions.description"="Build Hugo"
 LABEL "com.github.actions.icon"="code"
 LABEL "com.github.actions.color"="purple"
-LABEL "repository"="https://github.com/lowply/action-hugo"
+LABEL "repository"="https://github.com/lowply/build-hugo"
 LABEL "homepage"="https://github.com/lowply"
 LABEL "maintainer"="Sho Mizutani <lowply@github.com>"
 
