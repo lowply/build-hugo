@@ -14,7 +14,7 @@ workflow "Build" {
 }
 
 action "Build Hugo" {
-  uses = "lowply/action-hugo@master"
+  uses = "lowply/build-hugo@master"
   runs = "hugo"
 }
 ```
