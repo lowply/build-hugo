@@ -1,4 +1,4 @@
-FROM debian:9-slim
+FROM debian:buster-slim
 RUN apt-get update -y && apt-get install ca-certificates -y
 RUN update-ca-certificates
 ADD https://github.com/gohugoio/hugo/releases/download/v0.56.3/hugo_extended_0.56.3_Linux-64bit.deb /usr/local/src

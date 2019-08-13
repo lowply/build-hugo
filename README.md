@@ -3,7 +3,7 @@
 A GitHub Action to build Hugo site.
 
 - Using [Hugo extended version 0.56.3](https://github.com/gohugoio/hugo/releases/tag/v0.56.3)
-- Using [debian:9-slim](https://hub.docker.com/_/debian/) for the base image
+- Using [debian:buster-slim](https://hub.docker.com/_/debian/) as the base image
 
 Example workflow
 
