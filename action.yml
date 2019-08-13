@@ -1,0 +1,9 @@
+name: 'Build Hugo'
+author: 'Sho Mizutani <lowply@github.com>'
+description: 'Run the hugo command to build a website'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'code'
+  color: 'purple'
