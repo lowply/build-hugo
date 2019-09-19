@@ -1,7 +1,5 @@
 # Build Hugo
 
-## This action will be updated to fit the newer version of GitHub Actions on September 30, 2019.
-
 A GitHub Action to build Hugo site.
 
 - Using [Hugo extended version 0.58.2](https://github.com/gohugoio/hugo/releases/tag/v0.58.2)
