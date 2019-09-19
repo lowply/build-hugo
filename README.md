@@ -4,19 +4,21 @@
 
 A GitHub Action to build Hugo site.
 
-- Using [Hugo extended version 0.55.6](https://github.com/gohugoio/hugo/releases/tag/v0.55.6)
-- Using [debian:9-slim](https://hub.docker.com/_/debian/) for the base image
+- Using [Hugo extended version 0.58.2](https://github.com/gohugoio/hugo/releases/tag/v0.58.2)
+- Using [debian:buster-slim](https://hub.docker.com/_/debian/) as the base image
 
 Example workflow
 
 ```
-workflow "Build" {
-  on = "push"
-  resolves = ["Build Hugo"]
-}
-
-action "Build Hugo" {
-  uses = "lowply/build-hugo@master"
-  runs = "hugo"
-}
+name: Build Hugo
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@master
+    - name: Build Hugo
+      uses: lowply/build-hugo@v0.58.2
 ```
