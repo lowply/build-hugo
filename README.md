@@ -26,3 +26,21 @@ jobs:
 ```
 docker run --rm -w /tmp -v $(pwd):/tmp lowply/build-hugo:v0.68.3
 ```
+
+### Catch up with Hugo version
+
+Run:
+
+```
+./script/update.sh
+```
+
+Review the PR and make sure it passes the test.
+
+### Deployment
+
+After merging the update PR, run:
+
+```
+git checkout master && git pull && git tag "v$(cat VERSION)" && git push origin --tags
+```
