@@ -9,14 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@master
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        draft: false
-        prerelease: false
+      uses: actions/checkout@v2
+    - name: Run gh release create
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        gh release create ${GITHUB_REF/refs\/tags\//} -t ${GITHUB_REF/refs\/tags\//}
