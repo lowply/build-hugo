@@ -2,5 +2,5 @@
 
 git checkout master
 git pull
-git tag "v$(cat VERSION)"
+git tag -a "v$(cat VERSION)" -m "Update to v$(cat VERSION)"
 git push origin --tags
