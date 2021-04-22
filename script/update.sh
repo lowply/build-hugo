@@ -43,4 +43,4 @@ git add Dockerfile README.md VERSION
 git commit -a \
     -m "Update to ${HUGO_VERSION}" \
     -m "Updating Hugo to [v${HUGO_VERSION}](https://github.com/gohugoio/hugo/releases/tag/v${HUGO_VERSION})" 
-gh pr create -f 
+gh pr create --fill --head
