@@ -17,7 +17,7 @@ has "gh" || REQUIRED="${REQUIRED} gh"
 has "jq" || REQUIRED="${REQUIRED} jq"
 [ -z "${REQUIRED}" ] || error "Some tools are not installed:${REQUIRED}"
 [ -n "${GITHUB_TOKEN}" ] || error "GITHUB_TOKEN is empty"
-[ "$(git branch --show-current)" == 'master' ] || error "Check out the master branch first."
+[ "$(git branch --show-current)" == 'main' ] || error "Check out the main branch first."
 
 HUGO_VERSION=$(curl -s \
     -H "Accept: application/vnd.github.v3+json" \
@@ -43,4 +43,5 @@ git add Dockerfile README.md VERSION
 git commit -a \
     -m "Update to ${HUGO_VERSION}" \
     -m "Updating Hugo to [v${HUGO_VERSION}](https://github.com/gohugoio/hugo/releases/tag/v${HUGO_VERSION})" 
+git push origin "update/${HUGO_VERSION}"
 gh pr create -f 
