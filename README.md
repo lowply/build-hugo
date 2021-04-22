@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
     - name: Build Hugo
       uses: lowply/build-hugo@v0.82.0
 ```
