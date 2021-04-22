@@ -19,11 +19,7 @@ has "jq" || REQUIRED="${REQUIRED} jq"
 [ -n "${GITHUB_TOKEN}" ] || error "GITHUB_TOKEN is empty"
 [ "$(git branch --show-current)" == 'main' ] || error "Check out the main branch first."
 
-HUGO_VERSION=$(curl -s \
-    -H "Accept: application/vnd.github.v3+json" \
-    -H "Authorization: token ${GITHUB_TOKEN}" \
-    https://api.github.com/repos/gohugoio/hugo/releases/latest \
-    | jq -r .tag_name | sed -e 's/^v//')
+HUGO_VERSION=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
 CURRENT=$(git tag -l | tail -n 1 | sed -e 's/^v//')
 
 echo "       Latest Hugo version: ${HUGO_VERSION}"
