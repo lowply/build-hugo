@@ -16,7 +16,7 @@ has "git" || REQUIRED="${REQUIRED} git"
 has "gh" || REQUIRED="${REQUIRED} gh"
 has "jq" || REQUIRED="${REQUIRED} jq"
 [ -z "${REQUIRED}" ] || error "Some tools are not installed:${REQUIRED}"
-[ -n "${GITHUB_TOKEN}" ] || error "GITHUB_TOKEN is empty"
+# [ -n "${GITHUB_TOKEN}" ] || error "GITHUB_TOKEN is empty"
 [ "$(git branch --show-current)" == 'main' ] || error "Check out the main branch first."
 
 HUGO_VERSION=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
