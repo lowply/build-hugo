@@ -19,25 +19,25 @@ has "jq" || REQUIRED="${REQUIRED} jq"
 # [ -n "${GITHUB_TOKEN}" ] || error "GITHUB_TOKEN is empty"
 [ "$(git branch --show-current)" == 'main' ] || error "Check out the main branch first."
 
-HUGO_VERSION=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
-CURRENT=$(git tag -l | tail -n 1 | sed -e 's/^v//')
+LATEST=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
+CURRENT=$(cat VERSION)
 
-echo "       Latest Hugo version: ${HUGO_VERSION}"
+echo "       Latest Hugo version: ${LATEST}"
 echo "Current Build Hugo version: ${CURRENT}"
 
-[ "${HUGO_VERSION}" == "${CURRENT}" ] && error "No need to update."
+[ "${LATEST}" == "${CURRENT}" ] && error "No need to update."
 
-read -p "Proceed to open a pull request to bump to ${HUGO_VERSION}? (y/N): " yn
+read -p "Proceed to open a pull request to bump to ${LATEST}? (y/N): " yn
 case "${yn}" in
     [yY]*) : ;;
     *) exit 0;;
 esac
 
-git co -b "update/${HUGO_VERSION}"
-gsed -i "s/${CURRENT}/${HUGO_VERSION}/g" Dockerfile README.md VERSION
+git co -b "update/${LATEST}"
+gsed -i "s/${CURRENT}/${LATEST}/g" Dockerfile README.md VERSION
 git add Dockerfile README.md VERSION
 git commit -a \
-    -m "Update to ${HUGO_VERSION}" \
-    -m "Updating Hugo to [v${HUGO_VERSION}](https://github.com/gohugoio/hugo/releases/tag/v${HUGO_VERSION})" 
-git push origin "update/${HUGO_VERSION}"
+    -m "Update to ${LATEST}" \
+    -m "Updating Hugo to [v${LATEST}](https://github.com/gohugoio/hugo/releases/tag/v${LATEST})" 
+git push origin "update/${LATEST}"
 gh pr create -f 
