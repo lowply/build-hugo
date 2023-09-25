@@ -2,7 +2,7 @@
 
 A GitHub Action to build [Hugo](https://gohugo.io/) site.
 
-- Using [Hugo extended version 0.118.2](https://github.com/gohugoio/hugo/releases/tag/v0.118.2)
+- Using [Hugo extended version 0.119.0](https://github.com/gohugoio/hugo/releases/tag/v0.119.0)
 - Using [debian:buster-slim](https://hub.docker.com/_/debian/) as the base image
 
 ## Usage
@@ -20,7 +20,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
     - name: Build Hugo
-      uses: lowply/build-hugo@v0.118.2
+      uses: lowply/build-hugo@v0.119.0
 ```
 
 ### Versioning
@@ -35,7 +35,7 @@ Build Hugo version is designed to match with [the Hugo's version](https://github
 ### Running it locally
 
 ```
-docker run --rm -w /tmp -v $(pwd):/tmp lowply/build-hugo:v0.118.2
+docker run --rm -w /tmp -v $(pwd):/tmp lowply/build-hugo:v0.119.0
 ```
 
 ## Development
