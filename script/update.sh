@@ -41,18 +41,10 @@ if [ -z "${GITHUB_ACTIONS}" ]; then
 fi
 
 FILES="Dockerfile README.md VERSION"
-
-git checkout -b "update/${LATEST}"
 if [ -z "${GITHUB_ACTIONS}" ]; then
-    # macOS
-    sed -i '' "s/${CURRENT}/${LATEST}/g" ${FILES}
+    sed -i '' "s/${CURRENT}/${LATEST}/g" ${FILES} # macOS
+    ./script/pr.sh ${LATEST}
 else
-    # Linux / Actions Runner
-    sed -i "s/${CURRENT}/${LATEST}/g" ${FILES}
+    sed -i "s/${CURRENT}/${LATEST}/g" ${FILES} # Linux / Actions Runner
+    echo "update=true" >> $GITHUB_OUTPUT
 fi
-git add ${FILES}
-git commit -a \
-    -m "Update to ${LATEST}" \
-    -m "Updating Hugo to [v${LATEST}](https://github.com/gohugoio/hugo/releases/tag/v${LATEST})"
-git push origin "update/${LATEST}"
-gh pr create -f
