@@ -11,15 +11,15 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: update
+      - name: Update
         id: update
         run: ./script/update.sh
-      - name: test
+      - name: Test
         if: ${{ steps.update.outputs.update == 'true' }}
         run: ./script/test.sh
-      - name: push
+      - name: Open a Pull Request
         if: ${{ success() && steps.update.outputs.update == 'true' }}
         run: |
           git config user.email "sho@svifa.net"
