@@ -42,7 +42,7 @@ fi
 
 FILES="Dockerfile README.md VERSION"
 
-git co -b "update/${LATEST}"
+git checkout -b "update/${LATEST}"
 if [ -z "${GITHUB_ACTIONS}" ]; then
     # macOS
     sed -i '' "s/${CURRENT}/${LATEST}/g" ${FILES}
