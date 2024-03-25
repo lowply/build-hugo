@@ -8,6 +8,8 @@ jobs:
   main:
     name: Run the update script
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
     - name: Check out code
       uses: actions/checkout@v4
