@@ -14,4 +14,7 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v4
     - name: Run update script
-      run: ./script/update.sh
+      run: |
+        git config user.email "sho@svifa.net"
+        git config user.name "Sho Mizutani"
+        ./script/update.sh
