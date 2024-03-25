@@ -20,7 +20,7 @@ jobs:
         if: ${{ steps.update.outputs.update == 'true' }}
         run: ./script/test.sh
       - name: push
-        if: ${{ success() && ${{ steps.update.outputs.update == 'true' }} }}
+        if: ${{ success() && steps.update.outputs.update == 'true' }}
         run: |
           git config user.email "sho@svifa.net"
           git config user.name "Sho Mizutani"
