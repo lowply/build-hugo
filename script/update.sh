@@ -24,6 +24,8 @@ fi
 LATEST=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
 CURRENT=$(cat VERSION)
 
+[ -z "${LATEST}" ] && { echo "Failed to get Hugo's latest version."; exit 1; }
+
 if [ "${LATEST}" = "${CURRENT}" ]; then
     [ -z "${GITHUB_ACTIONS}" ] && echo "Already up-to-date."
     exit 0
@@ -43,8 +45,16 @@ fi
 FILES="Dockerfile README.md VERSION"
 if [ -z "${GITHUB_ACTIONS}" ]; then
     sed -i '' "s/${CURRENT}/${LATEST}/g" ${FILES} # macOS
-    ./script/pr.sh ${LATEST}
 else
     sed -i "s/${CURRENT}/${LATEST}/g" ${FILES} # Linux / Actions Runner
-    echo "update=true" >> $GITHUB_OUTPUT
+    git config user.email "sho@svifa.net"
+    git config user.name "Sho Mizutani"
 fi
+
+git checkout -b "update/${LATEST}"
+git add .
+git commit -a \
+    -m "Update to ${LATEST}" \
+    -m "Updating Hugo to [v${LATEST}](https://github.com/gohugoio/hugo/releases/tag/v${LATEST})"
+git push origin "update/${LATEST}"
+gh pr create -f
