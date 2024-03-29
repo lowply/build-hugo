@@ -1,9 +1,9 @@
 name: Catch up with Hugo
 on:
   workflow_dispatch:
-    schedule:
-      # Runs at 18:50 JST every day
-      - cron: "50 9 * * *"
+  schedule:
+    # Runs at 18:50 JST every day
+    - cron: "50 9 * * *"
 jobs:
   main:
     name: The main job
