@@ -6,22 +6,15 @@ on:
     - cron: "50 9 * * *"
 jobs:
   main:
-    name: The main job
+    name: Main job
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update
         id: update
         run: ./script/update.sh
-      - name: Test
-        if: ${{ steps.update.outputs.update == 'true' }}
-        run: ./script/test.sh
-      - name: Open a Pull Request
-        if: ${{ success() && steps.update.outputs.update == 'true' }}
-        run: |
-          git config user.email "sho@svifa.net"
-          git config user.name "Sho Mizutani"
-          ./script/pr.sh
