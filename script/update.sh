@@ -31,6 +31,11 @@ if [ "${LATEST}" = "${CURRENT}" ]; then
     exit 0
 fi
 
+if [ $(gh pr list --head "update/${LATEST}" --json title -q '. | length') != 0 ]; then
+    echo "Pull request already exists."
+    exit 0
+fi
+
 echo "Build Hugo version: ${CURRENT}"
 echo "      Hugo version: ${LATEST}"
 
