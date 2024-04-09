@@ -21,13 +21,18 @@ if [ -z "${GITHUB_ACTIONS}" ]; then
     [ "$(git branch --show-current)" = "main" ] || error "Check out the main branch first."
 fi
 
-LATEST=$(gh api repos/gohugoio/hugo/releases/latest | jq -r .tag_name | sed -e 's/^v//')
+LATEST=$(gh release list --repo gohugoio/hugo --exclude-drafts --exclude-pre-releases --json tagName,isLatest -q '.[] | select(.isLatest == true) | .tagName' | cut -d 'v' -f 2)
 CURRENT=$(cat VERSION)
 
 [ -z "${LATEST}" ] && { echo "Failed to get Hugo's latest version."; exit 1; }
 
 if [ "${LATEST}" = "${CURRENT}" ]; then
-    [ -z "${GITHUB_ACTIONS}" ] && echo "Already up-to-date."
+    echo "Already up-to-date."
+    exit 0
+fi
+
+if [ $(gh pr list --head "update/${LATEST}" --json title -q '. | length') != 0 ]; then
+    echo "Pull request already exists."
     exit 0
 fi
 
