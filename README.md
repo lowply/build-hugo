@@ -1,13 +1,13 @@
 # Build Hugo
 
-A GitHub Action to build [Hugo](https://gohugo.io/) site.
+A GitHub Action for building [Hugo](https://gohugo.io/) sites.
 
-- Using [Hugo extended version 0.132.0](https://github.com/gohugoio/hugo/releases/tag/v0.132.0)
-- Using [debian:buster-slim](https://hub.docker.com/_/debian/) as the base image
+- Utilizes [Hugo extended version 0.132.0](https://github.com/gohugoio/hugo/releases/tag/v0.132.0)
+- Based on [debian:buster-slim](https://hub.docker.com/_/debian/)
 
 ## Usage
 
-### Example workflow
+### Example Workflow
 
 ```yaml
 name: Build Hugo
@@ -25,14 +25,16 @@ jobs:
 
 ### Versioning
 
-Build Hugo version is designed to match with [the Hugo's version](https://github.com/gohugoio/hugo/releases). If you'd like to use a specific version of Hugo to build your website, do it like this:
+The Build Hugo version aligns with [Hugo's releases](https://github.com/gohugoio/hugo/releases). If you need a specific Hugo version to build your website, you can specify it like this:
 
 ```yaml
     - name: Build Hugo
       uses: lowply/build-hugo@v0.68.3
 ```
 
-### Running it locally
+### Running Locally
+
+To run it locally, use the following command:
 
 ```
 docker run --rm -w /tmp -v $(pwd):/tmp lowply/build-hugo:v0.132.0
@@ -40,16 +42,17 @@ docker run --rm -w /tmp -v $(pwd):/tmp lowply/build-hugo:v0.132.0
 
 ## Development
 
-### Catching up with the latest Hugo version
+### Keeping Up with the Latest Hugo Version
 
-Run this to create a PR:
+To create a PR for the latest version, run:
 
 ```
 ./script/update.sh
 ```
 
-Review the PR and make sure it passes the test. After merging the update PR, run:
+After reviewing and ensuring the PR passes all tests, merge it, and then execute:
 
 ```
 ./script/release.sh
 ```
+
