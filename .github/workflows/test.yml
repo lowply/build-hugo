@@ -1,8 +1,6 @@
 name: Test build
 on:
   push:
-    branches:
-      - 'update/**'
 jobs:
   main:
     name: Main job
