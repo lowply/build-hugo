@@ -3,7 +3,7 @@
 A GitHub Action for building [Hugo](https://gohugo.io/) sites.
 
 - Utilizes [Hugo extended version 0.148.1](https://github.com/gohugoio/hugo/releases/tag/v0.148.1)
-- Based on [debian:buster-slim](https://hub.docker.com/_/debian/)
+- Based on [debian:bookworm-slim](https://hub.docker.com/_/debian/)
 
 ## Usage
 
