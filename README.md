@@ -32,6 +32,8 @@ The Build Hugo version aligns with [Hugo's releases](https://github.com/gohugoio
       uses: lowply/build-hugo@v0.68.3
 ```
 
+NOTE: As of recently the mirrors for [debian:buster-slim](https://hub.docker.com/_/debian/) are broken. Therefore this action will not succeed for the versions that reference that base image. A current workaround is to use 0.148.1 or later which uses the `debian:bookworm-slim` base image.
+
 ### Running Locally
 
 To run it locally, use the following command:
