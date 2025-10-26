@@ -58,4 +58,3 @@ After reviewing and ensuring the PR passes all tests, merge it, and then execute
 ```
 ./script/release.sh
 ```
-
