@@ -75,7 +75,7 @@ git checkout -B "${BRANCH_NAME}" "${REMOTE_NAME}/${BASE_REF}"
 FILES=(Dockerfile README.md VERSION)
 for file in "${FILES[@]}"; do
     if [ "$(uname -s)" = "Darwin" ]; then
-        sed -i '' "s/${CURRENT}/${LATEST}/g" "${file}"
+        /usr/bin/sed -i '' "s/${CURRENT}/${LATEST}/g" "${file}"
     else
         sed -i "s/${CURRENT}/${LATEST}/g" "${file}"
     fi
