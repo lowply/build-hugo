@@ -58,16 +58,24 @@ echo "      Hugo version: v${LATEST}"
 
 git fetch "${REMOTE_NAME}" --prune >/dev/null 2>&1
 
-BASE_REF="${BASE_BRANCH}"
-echo "Basing ${BRANCH_NAME} on ${BASE_BRANCH}."
+# Check for existing catch up PRs and base on the latest one if found
+LATEST_CATCHUP_BRANCH="$(gh pr list -l catchup --state open --json headRefName -q 'first | .headRefName')"
 
+if [ -n "${LATEST_CATCHUP_BRANCH}" ]; then
+    BASE_REF="${LATEST_CATCHUP_BRANCH}"
+    echo "Found existing catch up branch: ${LATEST_CATCHUP_BRANCH}"
+    echo "Basing ${BRANCH_NAME} on ${LATEST_CATCHUP_BRANCH}."
+else
+    BASE_REF="${BASE_BRANCH}"
+    echo "Basing ${BRANCH_NAME} on ${BASE_BRANCH}."
+fi
 
 git checkout -B "${BRANCH_NAME}" "${REMOTE_NAME}/${BASE_REF}"
 
 FILES=(Dockerfile README.md VERSION)
 for file in "${FILES[@]}"; do
     if [ "$(uname -s)" = "Darwin" ]; then
-        sed -i '' "s/${CURRENT}/${LATEST}/g" "${file}"
+        /usr/bin/sed -i '' "s/${CURRENT}/${LATEST}/g" "${file}"
     else
         sed -i "s/${CURRENT}/${LATEST}/g" "${file}"
     fi
@@ -93,4 +101,4 @@ if [ -z "${GITHUB_ACTIONS:-}" ]; then
 fi
 
 git push --force-with-lease "${REMOTE_NAME}" "${BRANCH_NAME}"
-gh pr create --base "${BASE_REF}" --head "${BRANCH_NAME}" -f
+gh pr create --base "${BASE_REF}" --head "${BRANCH_NAME}" --label catchup -f
