@@ -35,15 +35,9 @@ fi
 
 LATEST_TAG="$(gh release list --repo gohugoio/hugo --exclude-drafts --exclude-pre-releases --json tagName,isLatest -q '.[] | select(.isLatest == true) | .tagName')"
 LATEST="${LATEST_TAG#v}"
-CURRENT="$(cat VERSION)"
 
 if [ -z "${LATEST}" ]; then
     error "Failed to get Hugo's latest version."
-fi
-
-if [ "${LATEST}" = "${CURRENT}" ]; then
-    echo "Already up-to-date."
-    exit 0
 fi
 
 BRANCH_NAME="${BRANCH_PREFIX}/${LATEST}"
@@ -52,9 +46,6 @@ if [ "$(gh pr list --head "${BRANCH_NAME}" --json number -q 'length')" != "0" ];
     echo "Pull request already exists."
     exit 0
 fi
-
-echo "Build Hugo version: v${CURRENT}"
-echo "      Hugo version: v${LATEST}"
 
 git fetch "${REMOTE_NAME}" --prune >/dev/null 2>&1
 
@@ -71,6 +62,16 @@ else
 fi
 
 git checkout -B "${BRANCH_NAME}" "${REMOTE_NAME}/${BASE_REF}"
+
+CURRENT="$(cat VERSION)"
+
+if [ "${LATEST}" = "${CURRENT}" ]; then
+    echo "Already up-to-date."
+    exit 0
+fi
+
+echo "Build Hugo version: v${CURRENT}"
+echo "      Hugo version: v${LATEST}"
 
 FILES=(Dockerfile README.md VERSION)
 for file in "${FILES[@]}"; do
