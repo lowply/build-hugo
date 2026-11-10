@@ -29,7 +29,7 @@ if [ -z "${GITHUB_ACTIONS:-}" ]; then
     CURRENT_BRANCH="$(git branch --show-current)"
     [ "${CURRENT_BRANCH}" = "${BASE_BRANCH}" ] || error "Check out the ${BASE_BRANCH} branch first."
 else
-    git config user.email "sho@svifa.net"
+    git config user.email "18643+lowply@users.noreply.github.com"
     git config user.name "Sho Mizutani"
 fi
 
